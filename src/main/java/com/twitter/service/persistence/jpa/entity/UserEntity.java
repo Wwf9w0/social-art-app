@@ -20,9 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,7 +35,6 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
     @Column(unique = true, nullable = false)
@@ -73,19 +70,19 @@ public class UserEntity {
     @UpdateTimestamp
     private Date updatedDate;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<LikeEntity> userLikes = new ArrayList<>();
+    private List<LikeEntity> userLikes;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userPosts", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<PostEntity> userPosts = new ArrayList<>();
+    private List<PostEntity> userPosts;
 
     @ElementCollection
-    private Map<UUID, Date> follower = new HashMap<>();
+    private Map<UUID, Date> follower;
 
     @ElementCollection
-    private Map<UUID, Date> following = new HashMap<>();
+    private Map<UUID, Date> following;
 
     public void setFollower(final UUID userId){
         follower.put(userId, new Date());
