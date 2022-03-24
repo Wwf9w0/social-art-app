@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
@@ -20,14 +22,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDto> addUser(@RequestBody UserRequest request){
+    public ResponseEntity<UserDto> addUser(@RequestBody UserRequest request) {
         userService.saveUser(request);
         return ResponseEntity.ok().build();
     }
 
-
     @GetMapping("/{name}")
-    public ResponseEntity<UserDto> getUserByName(@PathVariable String name){
+    public ResponseEntity<UserDto> getUserByName(@PathVariable String name) {
         return ResponseEntity.ok(userService.getUserByName(name));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserByUserId(id));
     }
 }

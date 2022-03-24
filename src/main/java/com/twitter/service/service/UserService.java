@@ -15,35 +15,35 @@ public class UserService {
 
     private final UserPersistenceService userPersistenceService;
 
-    public void saveUser (UserRequest request){
-         userPersistenceService.addUser(request);
+    public void saveUser(UserRequest request) {
+        userPersistenceService.addUser(request);
     }
 
-    public UserDto getUserByName(String name){
+    public UserDto getUserByName(String name) {
         return userPersistenceService.getUserByUserName(name);
     }
 
-    public UserDto getUserByUserId(String userId){
-        return  userPersistenceService.getUserByUserId(userId);
+    public UserDto getUserByUserId(String userId) {
+        return userPersistenceService.getUserByUserId(userId);
     }
 
-    public UserDto updateUser(UserRequest request){
+    public UserDto updateUser(UserRequest request) {
         return userPersistenceService.editUser(request);
     }
 
-   public boolean addFollower(String followerId, String userId){
+    public boolean addFollower(String followerId, String userId) {
         return userPersistenceService.addFollower(followerId, userId);
     }
 
-    public boolean removeFollower(String followerId, String userId){
+    public boolean removeFollower(String followerId, String userId) {
         return userPersistenceService.removeFollower(followerId, userId);
     }
 
-    public List<UserDto> getFollowers(String userId){
+    public List<UserDto> getFollowers(String userId) {
         return userPersistenceService.getFollowers(userId);
     }
 
-    public List<UserDto> getFollowings(String userId){
+    public List<UserDto> getFollowings(String userId) {
         return userPersistenceService.getFollowings(userId);
     }
 }

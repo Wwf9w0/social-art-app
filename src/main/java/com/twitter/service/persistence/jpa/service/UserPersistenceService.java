@@ -23,33 +23,34 @@ public class UserPersistenceService {
     private final UserRepository userRepository;
     private final UserEntityConverter userEntityConverter;
 
-    public UserDto getUserByUserName(String userName){
+    public UserDto getUserByUserName(String userName) {
         UserEntity userEntity = userRepository.findByUserName(userName);
         return userEntityConverter.toDto(userEntity);
     }
 
-    public UserDto getUserByUserId(String userId){
-        return userEntityConverter.toDto(userRepository.getById(userId));
+    public UserDto getUserByUserId(String userId) {
+        UserEntity userEntity = userRepository.getById(userId);
+
+        return userEntityConverter.toDto(userEntity);
     }
 
-    public void addUser(UserRequest userRequest){
-        try{
+    public void addUser(UserRequest userRequest) {
+        try {
             UserEntity userEntity = userEntityConverter.toEntity(userRequest);
             log.info("user added- {}", userEntity.getUserName());
-             userEntityConverter.toDto(userEntity);
-        }catch (Exception e){
+            userEntityConverter.toDto(userEntity);
+        } catch (Exception e) {
             log.error("Exception : {}", e);
         }
     }
 
-    public UserDto editUser(UserRequest request){
-
+    public UserDto editUser(UserRequest request) {
         UserEntity userEntity = userEntityConverter.toEntity(request);
-        log.info("edited user - {}" , userEntity.toString());
+        log.info("edited user - {}", userEntity.toString());
         return userEntityConverter.toDto(userRepository.save(userEntity));
     }
 
-    public boolean addFollower(String followerId, String userId){
+    public boolean addFollower(String followerId, String userId) {
         UserEntity user = userRepository.getById(userId);
         user.setFollower(followerId);
         userRepository.save(user);
@@ -57,7 +58,7 @@ public class UserPersistenceService {
         return true;
     }
 
-    public boolean removeFollower(String  followerId, String userId){
+    public boolean removeFollower(String followerId, String userId) {
         UserEntity user = userRepository.getById(userId);
         user.removeFollower(followerId);
         userRepository.save(user);
@@ -65,7 +66,7 @@ public class UserPersistenceService {
         return true;
     }
 
-    public List<UserDto> getFollowers(String userId){
+    public List<UserDto> getFollowers(String userId) {
         List<UserDto> followers = new ArrayList<>();
         UserEntity user = userRepository.getById(userId);
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
@@ -75,7 +76,7 @@ public class UserPersistenceService {
         return followers;
     }
 
-    public List<UserDto> getFollowings(String userId){
+    public List<UserDto> getFollowings(String userId) {
         List<UserDto> followings = new ArrayList<>();
         UserEntity user = userRepository.getById(userId);
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
