@@ -2,7 +2,9 @@ package com.twitter.service.persistence.jpa.converter;
 
 import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.entity.UserEntity;
+import com.twitter.service.persistence.jpa.repository.UserRepository;
 import com.twitter.service.persistence.jpa.request.UserRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,10 +13,14 @@ import java.util.stream.Collectors;
 
 
 @Component
+@RequiredArgsConstructor
 public class UserEntityConverter {
+
+    private final UserRepository userRepository;
 
     public UserDto toDto(UserEntity userEntity){
        return UserDto.builder()
+               .id(userEntity.getId())
                .avatar(userEntity.getAvatar())
                .followerCount(userEntity.getFollowerCount())
                .followingCount(userEntity.getFollowingCount())
@@ -43,6 +49,7 @@ public class UserEntityConverter {
         user.setUserName(request.getUserName());
         user.setFollowingCount(request.getFollowingCount());
         user.setFollowerCount(request.getFollowerCount());
-        return user;
+
+        return userRepository.save(user);
     }
 }

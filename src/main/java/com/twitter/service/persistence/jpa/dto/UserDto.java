@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class UserDto {
 
-    private UUID id;
+    private String id;
     private String userName;
     private String name;
     private String avatar;

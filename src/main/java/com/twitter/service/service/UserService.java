@@ -15,8 +15,8 @@ public class UserService {
 
     private final UserPersistenceService userPersistenceService;
 
-    public UserDto saveUser (UserRequest request){
-        return userPersistenceService.addUser(request);
+    public void saveUser (UserRequest request){
+         userPersistenceService.addUser(request);
     }
 
     public UserDto getUserByName(String name){
@@ -31,7 +31,7 @@ public class UserService {
         return userPersistenceService.editUser(request);
     }
 
-    public boolean addFollower(String followerId, String userId){
+   public boolean addFollower(String followerId, String userId){
         return userPersistenceService.addFollower(followerId, userId);
     }
 

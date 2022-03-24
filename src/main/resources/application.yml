@@ -10,4 +10,4 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
+      dialect: org.hibernate.dialect.H2Dialect

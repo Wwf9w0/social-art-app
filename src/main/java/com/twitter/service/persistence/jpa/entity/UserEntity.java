@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -22,7 +23,6 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -32,7 +32,6 @@ import java.util.UUID;
         indexes = {@Index(columnList = "userName")})
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(unique = true, nullable = false)
@@ -50,16 +49,16 @@ public class UserEntity {
     @Column
     private String bio;
 
-    @Column(columnDefinition = "BIGINT(20) default '0'", nullable = false)
+    @Column(nullable = false)
     private Long followingCount;
 
-    @Column(columnDefinition = "BIGINT(20) default '0'", nullable = false)
+    @Column(nullable = false)
     private Long followerCount;
 
-    @Column(columnDefinition = "boolean default false", nullable = false)
+    @Column(nullable = false)
     private Boolean verified;
 
-    @CreatedDate
+    @CreationTimestamp
     private Date createdDate;
 
     @LastModifiedDate
@@ -68,13 +67,13 @@ public class UserEntity {
     @UpdateTimestamp
     private Date updatedDate;
 
-/*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<LikeEntity> userLikes;
 
     @OneToMany(mappedBy = "userPosts", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<PostEntity> userPosts;*/
+    private List<PostEntity> userPosts;
 
     @ElementCollection
     private Map<String, Date> follower;

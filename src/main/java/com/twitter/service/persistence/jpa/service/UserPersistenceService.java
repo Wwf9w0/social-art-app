@@ -24,18 +24,22 @@ public class UserPersistenceService {
     private final UserEntityConverter userEntityConverter;
 
     public UserDto getUserByUserName(String userName){
-        return userEntityConverter.toDto(userRepository.findByUserName(userName));
+        UserEntity userEntity = userRepository.findByUserName(userName);
+        return userEntityConverter.toDto(userEntity);
     }
 
     public UserDto getUserByUserId(String userId){
         return userEntityConverter.toDto(userRepository.getById(userId));
     }
 
-    public UserDto addUser(UserRequest userRequest){
-        UserEntity userEntity = userEntityConverter.toEntity(userRequest);
-        UserEntity user = userRepository.save(userEntity);
-        log.info("user added- {}", user.getUserName());
-        return userEntityConverter.toDto(user);
+    public void addUser(UserRequest userRequest){
+        try{
+            UserEntity userEntity = userEntityConverter.toEntity(userRequest);
+            log.info("user added- {}", userEntity.getUserName());
+             userEntityConverter.toDto(userEntity);
+        }catch (Exception e){
+            log.error("Exception : {}", e);
+        }
     }
 
     public UserDto editUser(UserRequest request){
