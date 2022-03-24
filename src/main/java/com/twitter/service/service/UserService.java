@@ -4,7 +4,6 @@ import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.request.UserRequest;
 import com.twitter.service.persistence.jpa.service.UserPersistenceService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
 public class UserService {
 
     private final UserPersistenceService userPersistenceService;

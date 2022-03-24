@@ -6,6 +6,7 @@ import com.twitter.service.persistence.jpa.entity.UserEntity;
 import com.twitter.service.persistence.jpa.repository.UserRepository;
 import com.twitter.service.persistence.jpa.request.UserRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserPersistenceService {
 
     private final UserRepository userRepository;
@@ -31,6 +33,7 @@ public class UserPersistenceService {
 
     public UserDto addUser(UserRequest userRequest){
         UserEntity userEntity = userEntityConverter.toEntity(userRequest);
+        log.info("user added- {}", userEntity.toString());
         return userEntityConverter.toDto(userRepository.save(userEntity));
     }
 
@@ -39,6 +42,7 @@ public class UserPersistenceService {
             return null;
         }
         UserEntity userEntity = userEntityConverter.toEntity(request);
+        log.info("edited user - {}" , userEntity.toString());
         return userEntityConverter.toDto(userRepository.save(userEntity));
     }
 
@@ -46,6 +50,7 @@ public class UserPersistenceService {
         UserEntity user = userRepository.getById(userId);
         user.setFollower(followerId);
         userRepository.save(user);
+        log.info("added follower - {}", user.getFollower());
         return true;
     }
 
@@ -53,6 +58,7 @@ public class UserPersistenceService {
         UserEntity user = userRepository.getById(userId);
         user.removeFollower(followerId);
         userRepository.save(user);
+        log.info("removed follower - {}", user.getFollower());
         return true;
     }
 
@@ -62,6 +68,7 @@ public class UserPersistenceService {
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
         Optional.ofNullable(users)
                 .ifPresent(userList -> userList.forEach(eachUser -> followers.add(userEntityConverter.toDto(eachUser))));
+        log.info("list followers - {}", user.getFollower());
         return followers;
     }
 
@@ -71,6 +78,7 @@ public class UserPersistenceService {
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
         Optional.ofNullable(users)
                 .ifPresent(userList -> userList.forEach(eachUser -> followings.add(userEntityConverter.toDto(eachUser))));
+        log.info("list followings - {}", user.getFollower());
         return followings;
     }
 }
