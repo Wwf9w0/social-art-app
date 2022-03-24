@@ -6,7 +6,6 @@ import com.twitter.service.persistence.jpa.entity.UserEntity;
 import com.twitter.service.persistence.jpa.repository.UserRepository;
 import com.twitter.service.persistence.jpa.request.UserRequest;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
