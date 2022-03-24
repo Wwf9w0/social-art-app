@@ -3,11 +3,13 @@ package com.twitter.service.persistence.jpa.converter;
 import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.entity.UserEntity;
 import com.twitter.service.persistence.jpa.request.UserRequest;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
+@Component
 public class UserEntityConverter {
 
     public UserDto toDto(UserEntity userEntity){
