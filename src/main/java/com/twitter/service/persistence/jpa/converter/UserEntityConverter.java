@@ -2,6 +2,7 @@ package com.twitter.service.persistence.jpa.converter;
 
 import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.entity.UserEntity;
+import com.twitter.service.persistence.jpa.request.UserRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,5 +27,18 @@ public class UserEntityConverter {
         return userEntities.stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public UserEntity toEntity(UserRequest request){
+        UserEntity user = new UserEntity();
+
+        user.setId(request.getId());
+        user.setAvatar(request.getAvatar());
+        user.setBio(request.getBio());
+        user.setEmail(request.getEmail());
+        user.setVerified(request.getVerified());
+        user.setName(request.getName());
+        user.setUserName(request.getUserName());
+        return user;
     }
 }
