@@ -28,7 +28,7 @@ public class HashtagEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String tag;

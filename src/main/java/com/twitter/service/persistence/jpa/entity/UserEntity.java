@@ -33,7 +33,7 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private String id;
 
     @Column(unique = true, nullable = false)
     private String userName;
@@ -77,24 +77,24 @@ public class UserEntity {
     private List<PostEntity> userPosts;
 
     @ElementCollection
-    private Map<UUID, Date> follower;
+    private Map<String, Date> follower;
 
     @ElementCollection
-    private Map<UUID, Date> following;
+    private Map<String, Date> following;
 
-    public void setFollower(final UUID userId){
+    public void setFollower(final String userId){
         follower.put(userId, new Date());
     }
 
-    public void setFollowing(final UUID userId){
+    public void setFollowing(final String userId){
         following.put(userId, new Date());
     }
 
-    public void removeFollower(final UUID userId){
+    public void removeFollower(final String userId){
         follower.remove(userId);
     }
 
-    public void removeFollowing(final UUID userId){
+    public void removeFollowing(final String userId){
         following.remove(userId);
     }
 }

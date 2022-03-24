@@ -27,7 +27,7 @@ public class UserPersistenceService {
         return userEntityConverter.toDto(userRepository.findByUserName(userName));
     }
 
-    public UserDto getUserByUserId(UUID userId){
+    public UserDto getUserByUserId(String userId){
         return userEntityConverter.toDto(userRepository.getById(userId));
     }
 
@@ -38,15 +38,13 @@ public class UserPersistenceService {
     }
 
     public UserDto editUser(UserRequest request){
-        if (Objects.isNull(request.getId())){
-            return null;
-        }
+
         UserEntity userEntity = userEntityConverter.toEntity(request);
         log.info("edited user - {}" , userEntity.toString());
         return userEntityConverter.toDto(userRepository.save(userEntity));
     }
 
-    public boolean addFollower(UUID followerId, UUID userId){
+    public boolean addFollower(String followerId, String userId){
         UserEntity user = userRepository.getById(userId);
         user.setFollower(followerId);
         userRepository.save(user);
@@ -54,7 +52,7 @@ public class UserPersistenceService {
         return true;
     }
 
-    public boolean removeFollower(UUID followerId, UUID userId){
+    public boolean removeFollower(String  followerId, String userId){
         UserEntity user = userRepository.getById(userId);
         user.removeFollower(followerId);
         userRepository.save(user);
@@ -62,7 +60,7 @@ public class UserPersistenceService {
         return true;
     }
 
-    public List<UserDto> getFollowers(UUID userId){
+    public List<UserDto> getFollowers(String userId){
         List<UserDto> followers = new ArrayList<>();
         UserEntity user = userRepository.getById(userId);
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
@@ -72,7 +70,7 @@ public class UserPersistenceService {
         return followers;
     }
 
-    public List<UserDto> getFollowings(UUID userId){
+    public List<UserDto> getFollowings(String userId){
         List<UserDto> followings = new ArrayList<>();
         UserEntity user = userRepository.getById(userId);
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());

@@ -23,7 +23,7 @@ public class UserService {
         return userPersistenceService.getUserByUserName(name);
     }
 
-    public UserDto getUserByUserId(UUID userId){
+    public UserDto getUserByUserId(String userId){
         return  userPersistenceService.getUserByUserId(userId);
     }
 
@@ -31,19 +31,19 @@ public class UserService {
         return userPersistenceService.editUser(request);
     }
 
-    public boolean addFollower(UUID followerId, UUID userId){
+    public boolean addFollower(String followerId, String userId){
         return userPersistenceService.addFollower(followerId, userId);
     }
 
-    public boolean removeFollower(UUID followerId, UUID userId){
+    public boolean removeFollower(String followerId, String userId){
         return userPersistenceService.removeFollower(followerId, userId);
     }
 
-    public List<UserDto> getFollowers(UUID userId){
+    public List<UserDto> getFollowers(String userId){
         return userPersistenceService.getFollowers(userId);
     }
 
-    public List<UserDto> getFollowings(UUID userId){
+    public List<UserDto> getFollowings(String userId){
         return userPersistenceService.getFollowings(userId);
     }
 }

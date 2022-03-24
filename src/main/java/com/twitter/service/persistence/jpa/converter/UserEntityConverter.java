@@ -6,6 +6,7 @@ import com.twitter.service.persistence.jpa.request.UserRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -14,7 +15,6 @@ public class UserEntityConverter {
 
     public UserDto toDto(UserEntity userEntity){
        return UserDto.builder()
-               .id(userEntity.getId())
                .avatar(userEntity.getAvatar())
                .followerCount(userEntity.getFollowerCount())
                .followingCount(userEntity.getFollowingCount())
@@ -33,8 +33,8 @@ public class UserEntityConverter {
 
     public UserEntity toEntity(UserRequest request){
         UserEntity user = new UserEntity();
-
-        user.setId(request.getId());
+        String id = UUID.randomUUID().toString();
+        user.setId(id);
         user.setAvatar(request.getAvatar());
         user.setBio(request.getBio());
         user.setEmail(request.getEmail());
