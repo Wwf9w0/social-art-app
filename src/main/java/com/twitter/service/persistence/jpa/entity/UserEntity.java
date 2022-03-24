@@ -68,13 +68,13 @@ public class UserEntity {
     @UpdateTimestamp
     private Date updatedDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+/*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<LikeEntity> userLikes;
 
     @OneToMany(mappedBy = "userPosts", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<PostEntity> userPosts;
+    private List<PostEntity> userPosts;*/
 
     @ElementCollection
     private Map<String, Date> follower;

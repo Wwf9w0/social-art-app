@@ -41,6 +41,8 @@ public class UserEntityConverter {
         user.setVerified(request.getVerified());
         user.setName(request.getName());
         user.setUserName(request.getUserName());
+        user.setFollowingCount(request.getFollowingCount());
+        user.setFollowerCount(request.getFollowerCount());
         return user;
     }
 }
