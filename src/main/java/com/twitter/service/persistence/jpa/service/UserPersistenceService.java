@@ -74,13 +74,9 @@ public class UserPersistenceService {
         return users.get().getFollower();
     }
 
-    public List<UserDto> getFollowings(String userId) {
-        List<UserDto> followings = new ArrayList<>();
-        UserEntity user = userRepository.getById(userId);
-        List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
-        Optional.ofNullable(users)
-                .ifPresent(userList -> userList.forEach(eachUser -> followings.add(userEntityConverter.toDto(eachUser))));
-        log.info("list followings - {}", user.getFollower());
-        return followings;
+    public Map<String, Date> getFollowings(String userId) {
+        Optional<UserEntity> user = userRepository.findById(userId);
+        log.info("list followings - {}", user.get().getFollowing());
+        return user.get().getFollowing();
     }
 }

@@ -40,11 +40,11 @@ public class UserService {
         return userPersistenceService.removeFollower(followerId, userId);
     }
 
-    public Map<String, Date> getFollowers(String userId, Date date) {
+    public Map<String, Date> getFollowers(String userId) {
         return userPersistenceService.getFollowers(userId);
     }
 
-    public List<UserDto> getFollowings(String userId) {
+    public Map<String, Date> getFollowings(String userId) {
         return userPersistenceService.getFollowings(userId);
     }
 }

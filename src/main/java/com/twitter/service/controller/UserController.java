@@ -47,30 +47,35 @@ public class UserController {
     }
 
     @PatchMapping
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserRequest userRequest, Principal principal){
+    public ResponseEntity<UserDto> updateUser(@RequestBody UserRequest userRequest){
         return ResponseEntity.ok(userService.updateUser(userRequest));
     }
 
     @PostMapping("/{userId}/follow")
-    public ResponseEntity<HttpStatus> addFollower(@PathVariable String userId, Principal principal){
+    public ResponseEntity<HttpStatus> addFollower(@PathVariable String userId{
         userService.addFollower(userId, UUID.randomUUID().toString());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping
+    public ResponseEntity<HttpStatus> addFollowing(@PathVariable String userId){
+
+    }
+
     @DeleteMapping("/{userId}/follow")
-    public ResponseEntity<HttpStatus> removeFollower(@PathVariable String userId, Principal principal){
+    public ResponseEntity<HttpStatus> removeFollower(@PathVariable String userId){
         userService.removeFollower(userId, UUID.randomUUID().toString());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}/followers")
     public ResponseEntity<Map<String, Date>> getFollowers(@PathVariable String userId){
-        return ResponseEntity.ok(userService.getFollowers(userId, new Date()));
+        return ResponseEntity.ok(userService.getFollowers(userId));
     }
 
     @GetMapping("/{userId}/followings")
-    public List<UserDto> getFollowings(@PathVariable String userId){
-        return userService.getFollowings(userId);
+    public ResponseEntity<Map<String, Date>> getFollowings(@PathVariable String userId){
+        return ResponseEntity.ok(userService.getFollowings(userId));
     }
 
 
