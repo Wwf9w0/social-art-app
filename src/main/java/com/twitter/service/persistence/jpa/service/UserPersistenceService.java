@@ -60,6 +60,15 @@ public class UserPersistenceService {
         return true;
     }
 
+    public boolean addFollowing(String userId, String followingId) {
+        UserEntity user = userRepository.getById(userId);
+        user.setFollowing(followingId);
+        userRepository.save(user);
+
+        log.info("added following : {}", user.getFollowing());
+        return true;
+    }
+
     public boolean removeFollower(String followerId, String userId) {
         UserEntity user = userRepository.getById(userId);
         user.removeFollower(followerId);
