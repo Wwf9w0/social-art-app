@@ -57,7 +57,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping
+    @PostMapping("/{userId}/following")
     public ResponseEntity<HttpStatus> addFollowing(@PathVariable String userId) {
         userService.addFollowing(userId, UUID.randomUUID().toString());
         return new ResponseEntity<>(HttpStatus.CREATED);
