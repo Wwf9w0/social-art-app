@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,13 +68,10 @@ public class UserPersistenceService {
         return true;
     }
 
-    public List<UserDto> getFollowers(String userId) {
-        List<UserDto> followers = new ArrayList<>();
-        UserEntity user = userRepository.getById(userId);
-        List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
-        users.stream().forEach(userEntity -> followers.add(userEntityConverter.toDto(userEntity)));
-        log.info("list followers - {}", user.getFollower());
-        return followers;
+    public Map<String, Date> getFollowers(String userId) {
+        Optional<UserEntity> users = userRepository.findById(userId);
+        log.info("list followers - {}", users.get().getFollower());
+        return users.get().getFollower();
     }
 
     public List<UserDto> getFollowings(String userId) {

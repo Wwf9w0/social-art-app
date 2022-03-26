@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.ws.Response;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -62,8 +64,8 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers")
-    public List<UserDto> getFollowers(@PathVariable String userId){
-        return userService.getFollowers(userId);
+    public ResponseEntity<Map<String, Date>> getFollowers(@PathVariable String userId){
+        return ResponseEntity.ok(userService.getFollowers(userId, new Date()));
     }
 
     @GetMapping("/{userId}/followings")

@@ -6,8 +6,9 @@ import com.twitter.service.persistence.jpa.service.UserPersistenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -39,7 +40,7 @@ public class UserService {
         return userPersistenceService.removeFollower(followerId, userId);
     }
 
-    public List<UserDto> getFollowers(String userId) {
+    public Map<String, Date> getFollowers(String userId, Date date) {
         return userPersistenceService.getFollowers(userId);
     }
 
