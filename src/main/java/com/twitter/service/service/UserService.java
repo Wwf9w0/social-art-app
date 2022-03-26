@@ -31,8 +31,8 @@ public class UserService {
         return userPersistenceService.editUser(request);
     }
 
-    public boolean addFollower(String followerId, String userId) {
-        return userPersistenceService.addFollower(followerId, userId);
+    public boolean addFollower(String userId, String followerId ) {
+        return userPersistenceService.addFollower(userId,followerId);
     }
 
     public boolean removeFollower(String followerId, String userId) {

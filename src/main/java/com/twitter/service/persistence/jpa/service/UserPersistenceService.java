@@ -50,7 +50,7 @@ public class UserPersistenceService {
         return userEntityConverter.toDto(userRepository.save(userEntity));
     }
 
-    public boolean addFollower(String followerId, String userId) {
+    public boolean addFollower(String userId, String followerId) {
         UserEntity user = userRepository.getById(userId);
         user.setFollower(followerId);
         userRepository.save(user);
@@ -70,8 +70,7 @@ public class UserPersistenceService {
         List<UserDto> followers = new ArrayList<>();
         UserEntity user = userRepository.getById(userId);
         List<UserEntity> users = userRepository.findAllById(user.getFollower().keySet());
-        Optional.ofNullable(users)
-                .ifPresent(userList -> userList.forEach(eachUser -> followers.add(userEntityConverter.toDto(eachUser))));
+        users.stream().forEach(userEntity -> followers.add(userEntityConverter.toDto(userEntity)));
         log.info("list followers - {}", user.getFollower());
         return followers;
     }
