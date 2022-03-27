@@ -78,6 +78,4 @@ public class UserController {
     public ResponseEntity<Map<String, Date>> getFollowings(@PathVariable String userId) {
         return ResponseEntity.ok(userService.getFollowings(userId));
     }
-
-
 }
