@@ -33,8 +33,8 @@ public class HashtagEntity {
     @Column(nullable = false, unique = true)
     private String tag;
 
-    @Column(columnDefinition = "BIGINT(20) default '1'", nullable = false)
-    private Long recentPostCount;
+    @Column(nullable = false)
+    private Long recentPostCount = 1L;
 
     @OneToMany(mappedBy = "hashTag", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HashtagPostEntity> hashtagPostEntities;
