@@ -33,7 +33,6 @@ import java.util.UUID;
 public class PostEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column

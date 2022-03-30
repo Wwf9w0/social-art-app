@@ -21,12 +21,11 @@ import javax.persistence.Table;
 public class HashTagPostEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
-    private HashtagEntity hashTag;
+    private HashTagEntity hashTag;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
