@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
 
 @Data
 @Builder
@@ -13,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class HashTagDto {
 
-    private UUID id;
+    private String id;
     private String tag;
     private Long recentPostCount;
 }

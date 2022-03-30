@@ -15,14 +15,14 @@ import java.util.UUID;
 @Builder
 public class PostDto {
 
-    private UUID id;
+    private String id;
     private String text;
-    private UUID userId;
+    private String userId;
     private Map<String, Date> images;
     private Long likeCount;
     private Long repostCount;
-    private UUID originalPostId;
-    private UUID replyToId;
+    private String originalPostId;
+    private String replyToId;
     private Date timestemp;
     private Map<String, Date> hashtags;
     private Map<String, Date> mentions;

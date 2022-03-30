@@ -53,10 +53,10 @@ public class PostEntity {
     private Long repostCount = 0L;
 
     @Column
-    private UUID originalPostId;
+    private String originalPostId;
 
     @Column
-    private UUID replyToId;
+    private String replyToId;
 
     @CreatedDate
     private Date timestamp;
