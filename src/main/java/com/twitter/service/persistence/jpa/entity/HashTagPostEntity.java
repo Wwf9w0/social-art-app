@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "hashtag_post")
-public class HashtagPostEntity {
+public class HashTagPostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

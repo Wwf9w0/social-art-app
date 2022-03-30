@@ -72,7 +72,7 @@ public class PostEntity {
     private Map<String, Date> mentions;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HashtagPostEntity> postHashtag;
+    private List<HashTagPostEntity> postHashtag;
 
     @OneToMany(mappedBy = "postLikes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LikeEntity> postLikes;

@@ -9,11 +9,11 @@ import java.util.UUID;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class HashtagPostDto {
+@NoArgsConstructor
+public class HashTagDto {
 
     private UUID id;
-    private HashtagDto hashtagDto;
-    private PostDto postDto;
+    private String tag;
+    private Long recentPostCount;
 }

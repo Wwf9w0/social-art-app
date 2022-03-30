@@ -17,14 +17,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "hashtag")
-public class HashtagEntity {
+public class HashTagEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +36,7 @@ public class HashtagEntity {
     private Long recentPostCount = 1L;
 
     @OneToMany(mappedBy = "hashTag", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<HashtagPostEntity> hashtagPostEntities;
+    private List<HashTagPostEntity> hashtagPostEntities;
 
     @CreatedDate
     private Date createdAt;
