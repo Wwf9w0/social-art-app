@@ -56,19 +56,12 @@ public class HashTagPersistenceService {
         allTags.removeAll(existTags);
         setHashTagCount(hashTags);
         List<HashTagEntity> toBeCreatedHashTags = new ArrayList<>(hashTags);
-        Optional.ofNullable(allTags)
-                .ifPresent(
-                        notPresentTags -> {
-                            notPresentTags.forEach(
-                                    notPresentTag -> {
-                                        HashTagEntity  newHashTag = new HashTagEntity();
-                                        newHashTag.setTag(notPresentTag);
-                                        newHashTag.setRecentPostCount(1L);
-                                        toBeCreatedHashTags.add(newHashTag);
-                                    });
-                        }
-                );
-
+        allTags.stream().forEach(notPresentTag -> {
+            HashTagEntity  newHashTag = new HashTagEntity();
+            newHashTag.setTag(notPresentTag);
+            newHashTag.setRecentPostCount(1L);
+            toBeCreatedHashTags.add(newHashTag);
+        });
         outputListHashTags.addAll(hashTagRepository.saveAll(toBeCreatedHashTags));
         return outputListHashTags;
     }
