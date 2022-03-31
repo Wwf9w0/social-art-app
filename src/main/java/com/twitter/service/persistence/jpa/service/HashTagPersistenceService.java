@@ -11,10 +11,10 @@ import com.twitter.service.persistence.jpa.repository.HashTagRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +46,50 @@ public class HashTagPersistenceService {
             postDtos.add(postEntityConverter.toPostDto(post));
         });
         return postDtos;
+    }
+
+    public List<HashTagEntity> getHashTagsByTag(List<String> tags){
+        List<HashTagEntity> outputListHashTags = new ArrayList<>();
+        List<HashTagEntity> hashTags = hashTagRepository.findByTagIn(tags);
+        Set<String> existTags = fetchExistingTags(hashTags);
+        Set<String> allTags = new HashSet<>(tags);
+        allTags.removeAll(existTags);
+        setHashTagCount(hashTags);
+        List<HashTagEntity> toBeCreatedHashTags = new ArrayList<>(hashTags);
+        Optional.ofNullable(allTags)
+                .ifPresent(
+                        notPresentTags -> {
+                            notPresentTags.forEach(
+                                    notPresentTag -> {
+                                        HashTagEntity  newHashTag = new HashTagEntity();
+                                        newHashTag.setTag(notPresentTag);
+                                        newHashTag.setRecentPostCount(1L);
+                                        toBeCreatedHashTags.add(newHashTag);
+                                    });
+                        }
+                );
+
+        outputListHashTags.addAll(hashTagRepository.saveAll(toBeCreatedHashTags));
+        return outputListHashTags;
+    }
+
+    private void setHashTagCount(List<HashTagEntity> hashTags){
+        if (!CollectionUtils.isEmpty(hashTags)){
+            hashTags.forEach(
+                    presentHashTag ->
+                            presentHashTag
+                                    .setRecentPostCount
+                                            (presentHashTag.getRecentPostCount() + 1));
+
+        }
+    }
+
+    private Set<String> fetchExistingTags(List<HashTagEntity> hashTags){
+        if (!CollectionUtils.isEmpty(hashTags)){
+            return hashTags.stream().map(hTag -> hTag.getTag())
+                    .collect(Collectors.toSet());
+        }
+        return new HashSet<>();
     }
 
 }
