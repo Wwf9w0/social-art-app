@@ -48,7 +48,7 @@ public class HashTagPersistenceService {
         return postDtos;
     }
 
-    public List<HashTagEntity> getHashTagsByTag(List<String> tags){
+    public List<HashTagEntity> getHashTagsByTags(List<String> tags){
         List<HashTagEntity> outputListHashTags = new ArrayList<>();
         List<HashTagEntity> hashTags = hashTagRepository.findByTagIn(tags);
         Set<String> existTags = fetchExistingTags(hashTags);

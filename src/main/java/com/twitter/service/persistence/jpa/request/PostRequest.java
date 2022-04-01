@@ -1,17 +1,17 @@
-package com.twitter.service.persistence.jpa.dto;
+package com.twitter.service.persistence.jpa.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class PostDto {
+@AllArgsConstructor
+public class PostRequest {
 
     private String id;
     private String text;
@@ -24,4 +24,5 @@ public class PostDto {
     private Date timestemp;
     private List<String> hashtags = new ArrayList<>();
     private List<String> mentions = new ArrayList<>();
+
 }

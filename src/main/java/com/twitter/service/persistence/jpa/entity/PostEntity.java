@@ -19,11 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -44,7 +40,7 @@ public class PostEntity {
     private UserEntity userPosts;
 
     @ElementCollection
-    private Map<String, Date> images = new HashMap<>(4); // maximum of 4 img
+    private List<String> images = new ArrayList<>(4);
 
     @Column(nullable = false)
     private Long likeCount = 0L;
@@ -65,10 +61,10 @@ public class PostEntity {
     private Date updatedAt;
 
     @ElementCollection
-    private Map<String, Date> hashtags;
+    private List<String> hashtags = new ArrayList<>();
 
     @ElementCollection
-    private Map<String, Date> mentions;
+    private List<String> mentions = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HashTagPostEntity> postHashtag;
