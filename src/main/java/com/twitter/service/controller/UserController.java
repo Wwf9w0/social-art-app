@@ -28,8 +28,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> addUser(@RequestBody UserRequest request) {
-        userService.saveUser(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(userService.saveUser(request));
     }
 
     @GetMapping("/{name}")

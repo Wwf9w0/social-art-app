@@ -25,6 +25,7 @@ public class UserEntityConverter {
                .followerCount(userEntity.getFollowerCount())
                .followingCount(userEntity.getFollowingCount())
                .bio(userEntity.getBio())
+               .email(userEntity.getEmail())
                .userName(userEntity.getUserName())
                .name(userEntity.getName())
                .verified(userEntity.getVerified())

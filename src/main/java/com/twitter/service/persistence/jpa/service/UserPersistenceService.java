@@ -31,8 +31,9 @@ public class UserPersistenceService {
         return userEntityConverter.toDto(userEntity);
     }
 
-    public void addUser(UserDto user) {
-        userEntityConverter.toEntityOfDto(user);
+    public UserDto addUser(UserDto user) {
+        UserEntity userEntity = userEntityConverter.toEntityOfDto(user);
+       return userEntityConverter.toDto(userEntity);
     }
 
     public UserDto editUser(UserRequest request) {

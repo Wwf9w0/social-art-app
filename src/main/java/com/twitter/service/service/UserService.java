@@ -21,13 +21,14 @@ public class UserService {
     private final UserPersistenceService userPersistenceService;
     private final UserEntityConverter userEntityConverter;
 
-    public void saveUser(UserRequest request) {
+    public UserDto saveUser(UserRequest request) {
         try{
             UserEntity user = userEntityConverter.toEntity(request);
-            userPersistenceService.addUser(userEntityConverter.toDto(user));
+         return  userPersistenceService.addUser(userEntityConverter.toDto(user));
         }catch (Exception e){
             //TODO exception handler added
             log.error("Save User Exception : {}", e);
+            throw  new RuntimeException();
         }
     }
 

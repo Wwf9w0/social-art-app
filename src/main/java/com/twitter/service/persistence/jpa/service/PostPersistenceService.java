@@ -110,7 +110,7 @@ public class PostPersistenceService {
         UserEntity user = getUser(userId);
 
         try {
-            likeRepository.deleteByPostsAndUsers(post, user);
+            likeRepository.deleteByPostLikesIdAndUserId(post.getId(), user.getId());
             postRepository.save(post);
             return post.getLikeCount();
 
