@@ -26,8 +26,8 @@ public class PostEntityConverter {
                 .build();
     }
 
-    public PostDto toDto(PostRequest request) {
-        return PostDto.builder()
+    public PostEntity toDto(PostRequest request) {
+        return PostEntity.builder()
                 .id(request.getId())
                 .hashtags(request.getHashtags())
                 .images(request.getImages())

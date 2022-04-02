@@ -52,21 +52,23 @@ public class PostPersistenceService {
     }
 
     public PostDto addPost(PostRequest request){
-        List<HashTagPostEntity> hashTagPost = new ArrayList<>();
-        PostDto post = postEntityConverter.toDto(request);
-       Optional<UserEntity> user = userRepository.findById(request.getUserId());
-        List<HashTagEntity> hashTag = hashTagPersistenceService.getHashTagsByTags(request.getHashtags());
-        if (Objects.nonNull(hashTag)){
-            hashTag.stream()
-                    .forEach(hash -> {
-                        HashTagPostEntity hashTagPostEntity = new HashTagPostEntity();
-                        hashTagPostEntity.setHashTag(hash);
-                        hashTagPostEntity.setPost(postEntityConverter.toPostEntity(post));
-                    });
-        }
-        post.setHashtags(hashTagPost);
-        hashTagPostRepository.saveAll(hashTagPost);
-        return postRepository.save(postEntityConverter.toPostEntity(post));
+        List<HashTagPostEntity> hashTagPostEntityArrayList = new ArrayList<>();
+        PostEntity postEntity = postEntityConverter.toDto(request);
+        Optional<UserEntity> user = userRepository.findById(request.getUserId());
+        postEntity.setUserPosts(user.get());
+        List<HashTagEntity> hashTagEntities = hashTagPersistenceService.getHashTagsByTags(request.getHashtags());
+        hashTagEntities.stream()
+                .forEach(hashPost -> {
+                    HashTagPostEntity hashTagPostEntity = new HashTagPostEntity();
+                    hashTagPostEntity.setHashTag(hashPost);
+                    hashTagPostEntity.setPost(postEntity);
+                    hashTagPostEntityArrayList.add(hashTagPostEntity);
+
+                } );
+        postEntity.setPostHashtag(hashTagPostEntityArrayList);
+        hashTagPostRepository.saveAll(hashTagPostEntityArrayList);
+        postRepository.save(postEntity);
+        return postEntityConverter.toPostDto(postEntity);
     }
 
 }
