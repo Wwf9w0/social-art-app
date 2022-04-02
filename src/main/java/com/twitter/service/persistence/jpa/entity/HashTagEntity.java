@@ -38,9 +38,15 @@ public class HashTagEntity {
     @OneToMany(mappedBy = "hashTag", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<HashTagPostEntity> hashtagPostEntities;
 
+    @OneToMany(mappedBy = "hashTag", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostEntity> posts;
+
     @CreatedDate
     private Date createdAt;
 
     @UpdateTimestamp
     private Date updatedAt;
+
+    @Column
+    private boolean isUsed = false;
 }

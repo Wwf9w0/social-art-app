@@ -19,6 +19,7 @@ public class PostRequest {
     private List<String> images = new ArrayList<>(4);
     private Long likeCount;
     private Long repostCount;
+    private String tag;
     private String originalPostId;
     private String replyToId;
     private Date timestemp;

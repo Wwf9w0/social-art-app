@@ -72,6 +72,10 @@ public class PostEntity {
     @OneToMany(mappedBy = "postLikes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LikeEntity> postLikes;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private HashTagEntity hashTag;
+
     public long incrementLikeCount(){
         return ++likeCount;
     }

@@ -4,10 +4,7 @@ import com.twitter.service.persistence.jpa.converter.PostEntityConverter;
 import com.twitter.service.persistence.jpa.converter.UserEntityConverter;
 import com.twitter.service.persistence.jpa.dto.PostDto;
 import com.twitter.service.persistence.jpa.entity.*;
-import com.twitter.service.persistence.jpa.repository.HashTagPostRepository;
-import com.twitter.service.persistence.jpa.repository.LikeRepository;
-import com.twitter.service.persistence.jpa.repository.PostRepository;
-import com.twitter.service.persistence.jpa.repository.UserRepository;
+import com.twitter.service.persistence.jpa.repository.*;
 import com.twitter.service.persistence.jpa.request.PostRequest;
 import com.twitter.service.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -32,6 +30,7 @@ public class PostPersistenceService {
     private final UserRepository userRepository;
     private final PostEntityConverter postEntityConverter;
     private final UserEntityConverter userEntityConverter;
+    private final HashTagRepository hashTagRepository;
 
 
     public List<PostDto> getAllPosts() {
@@ -54,8 +53,12 @@ public class PostPersistenceService {
     public PostDto addPost(PostRequest request) {
         List<HashTagPostEntity> hashTagPostEntityArrayList = new ArrayList<>();
         PostEntity postEntity = postEntityConverter.toDto(request);
+        Optional<HashTagEntity> hashTagPost = hashTagRepository.findById(postEntity.getId());
         Optional<UserEntity> user = userRepository.findById(request.getUserId());
         postEntity.setUserPosts(user.get());
+        if (Objects.nonNull(request.getTag())){
+            hashTagPost.get().setUsed(true);
+        }
         List<HashTagEntity> hashTagEntities = hashTagPersistenceService.getHashTagsByTags(request.getHashtags());
         hashTagEntities.stream()
                 .forEach(hashPost -> {

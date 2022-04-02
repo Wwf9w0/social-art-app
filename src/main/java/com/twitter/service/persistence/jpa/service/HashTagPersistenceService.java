@@ -5,9 +5,11 @@ import com.twitter.service.persistence.jpa.converter.PostEntityConverter;
 import com.twitter.service.persistence.jpa.dto.HashTagDto;
 import com.twitter.service.persistence.jpa.dto.PostDto;
 import com.twitter.service.persistence.jpa.entity.HashTagEntity;
+import com.twitter.service.persistence.jpa.entity.HashTagPostEntity;
 import com.twitter.service.persistence.jpa.entity.PostEntity;
 import com.twitter.service.persistence.jpa.repository.HashTagPostRepository;
 import com.twitter.service.persistence.jpa.repository.HashTagRepository;
+import com.twitter.service.persistence.jpa.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class HashTagPersistenceService {
     private final HashTagEntityConverter hashTagEntityConverter;
     private final PostEntityConverter postEntityConverter;
     private final HashTagPostRepository hashTagPostRepository;
+    private final PostRepository postRepository;
 
     public List<HashTagDto> getHasTags(){
         List<HashTagEntity> hashTagEntities = hashTagRepository.findAll();
@@ -39,7 +42,7 @@ public class HashTagPersistenceService {
         HashTagEntity hashTag = hashTagRepository.findByTag(tag);
         List<PostEntity> postList= new ArrayList<>();
         if (Objects.nonNull(hashTag)){
-            postList = hashTagPostRepository.findByHashTags(hashTag);
+            postList = hashTag.getPosts();
         }
         List<PostDto> postDtos = new ArrayList<>();
         postList.stream().forEach(post -> {

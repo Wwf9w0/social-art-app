@@ -20,7 +20,6 @@ public class UserService {
 
     private final UserPersistenceService userPersistenceService;
     private final UserEntityConverter userEntityConverter;
-    private final UserRepository userRepository;
 
     public void saveUser(UserRequest request) {
         try{
