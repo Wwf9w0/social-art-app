@@ -3,6 +3,7 @@ package com.twitter.service.service;
 import com.twitter.service.persistence.jpa.converter.UserEntityConverter;
 import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.entity.UserEntity;
+import com.twitter.service.persistence.jpa.repository.UserRepository;
 import com.twitter.service.persistence.jpa.request.UserRequest;
 import com.twitter.service.persistence.jpa.service.UserPersistenceService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class UserService {
 
     private final UserPersistenceService userPersistenceService;
     private final UserEntityConverter userEntityConverter;
+    private final UserRepository userRepository;
 
     public void saveUser(UserRequest request) {
         try{

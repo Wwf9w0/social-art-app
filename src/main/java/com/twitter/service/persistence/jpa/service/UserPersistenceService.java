@@ -21,14 +21,13 @@ public class UserPersistenceService {
     private final UserRepository userRepository;
     private final UserEntityConverter userEntityConverter;
 
-    public UserDto getUserByUserName(String userName) {
-        UserEntity userEntity = userRepository.findByUserName(userName);
-        return userEntityConverter.toDto(userEntity);
+    public UserDto getUserByUserName(String name) {
+        UserEntity user =  userRepository.findByUserName(name);
+        return userEntityConverter.toDto(user);
     }
 
     public UserDto getUserByUserId(String userId) {
         UserEntity userEntity = userRepository.getById(userId);
-
         return userEntityConverter.toDto(userEntity);
     }
 

@@ -65,4 +65,17 @@ public class UserEntityConverter {
         return userRepository.save(user);
     }
 
+    public UserEntity toEntity(UserDto userDto){
+        return UserEntity.builder()
+                .avatar(userDto.getAvatar())
+                .bio(userDto.getBio())
+                .email(userDto.getEmail())
+                .verified(userDto.getVerified())
+                .name(userDto.getName())
+                .userName(userDto.getUserName())
+                .followerCount(userDto.getFollowerCount())
+                .followingCount(userDto.getFollowingCount())
+                .build();
+    }
+
 }
