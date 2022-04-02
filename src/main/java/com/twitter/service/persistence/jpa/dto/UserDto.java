@@ -17,6 +17,7 @@ public class UserDto {
     private String userName;
     private String name;
     private String avatar;
+    private String email;
     private String bio;
     private Long followerCount;
     private Long followingCount;

@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LikeRepository extends JpaRepository<LikeEntity, String> {
 
-   // void deleteByPostsAndUsers(PostEntity posts, UserEntity user);
+    void deleteByPostsAndUsers(PostEntity posts, UserEntity user);
 }
