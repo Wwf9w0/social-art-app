@@ -81,10 +81,10 @@ public class PostPersistenceService {
     }
 
     @Transactional
-    public long addLike(String postId, String userId){
-        PostEntity post = postEntityConverter.toPostEntity(getPost(postId));
+    public long addLike(String postId, String userId) {
+        PostEntity post = getPostById(postId);
         post.incrementLikeCount();
-        UserEntity user = userEntityConverter.toEntityOfDto(userService.getUserByUserId(userId));
+        UserEntity user = getUser(userId);
         LikeEntity likeMapping = new LikeEntity();
         likeMapping.setUser(user);
         likeMapping.setPostLikes(post);
@@ -95,28 +95,39 @@ public class PostPersistenceService {
             postRepository.save(post);
             return post.getLikeCount();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Cannot Save Like Entity");
             // TODO exception handler add
-            throw  new RuntimeException();
+            throw new RuntimeException();
         }
     }
 
     @Transactional
-    public long removeLike(String postId, String userId){
-        PostEntity post = postEntityConverter.toPostEntity(getPost(postId));
+    public long removeLike(String postId, String userId) {
+        PostEntity post = getPostById(postId);
         post.decrementLikeCount();
-        UserEntity user = userEntityConverter.toEntityOfDto(userService.getUserByUserId(userId));
+        UserEntity user = getUser(userId);
 
-        try{
+        try {
             likeRepository.deleteByPostsAndUsers(post, user);
             postRepository.save(post);
             return post.getLikeCount();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Cannot Save Like Entity");
             // TODO exception handler add
-            throw  new RuntimeException();        }
+            throw new RuntimeException();
+        }
+    }
+
+    private UserEntity getUser(String userId) {
+        return userEntityConverter
+                .toEntityOfDto(userService.getUserByUserId(userId));
+    }
+
+    private PostEntity getPostById(String postId) {
+        return postEntityConverter
+                .toPostEntity(getPost(postId));
     }
 
 
