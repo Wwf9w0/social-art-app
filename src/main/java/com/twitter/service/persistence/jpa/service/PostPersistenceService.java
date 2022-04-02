@@ -88,8 +88,6 @@ public class PostPersistenceService {
         LikeEntity likeMapping = new LikeEntity();
         likeMapping.setUser(user);
         likeMapping.setPostLikes(post);
-
-
         try {
             likeRepository.save(likeMapping);
             postRepository.save(post);

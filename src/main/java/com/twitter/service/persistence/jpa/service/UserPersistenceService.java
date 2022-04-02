@@ -77,4 +77,8 @@ public class UserPersistenceService {
         log.info("list followings - {}", user.get().getFollowing());
         return user.get().getFollowing();
     }
+
+    public Optional<UserEntity> findByUserId(String userId){
+        return userRepository.findById(userId);
+    }
 }
