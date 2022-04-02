@@ -38,33 +38,31 @@ public class UserEntityConverter {
     }
 
     public UserEntity toEntity(UserRequest request){
-        UserEntity user = new UserEntity();
-        String id = UUID.randomUUID().toString();
-        user.setId(id);
-        user.setAvatar(request.getAvatar());
-        user.setBio(request.getBio());
-        user.setEmail(request.getEmail());
-        user.setVerified(request.getVerified());
-        user.setName(request.getName());
-        user.setUserName(request.getUserName());
-        user.setFollowingCount(request.getFollowingCount());
-        user.setFollowerCount(request.getFollowerCount());
-
-        return userRepository.save(user);
+        return UserEntity.builder()
+                .avatar(request.getAvatar())
+                .bio(request.getBio())
+                .email(request.getEmail())
+                .verified(request.getVerified())
+                .name(request.getName())
+                .userName(request.getUserName())
+                .followerCount(request.getFollowerCount())
+                .followingCount(request.getFollowingCount())
+                .build();
     }
 
     public UserEntity toEntityOfDto(UserDto userDto){
-        return UserEntity.builder()
-                .id(userDto.getId())
-                .avatar(userDto.getAvatar())
-                .bio(userDto.getBio())
-                .email(userDto.getEmail())
-                .verified(userDto.getVerified())
-                .name(userDto.getName())
-                .userName(userDto.getUserName())
-                .followerCount(userDto.getFollowerCount())
-                .followingCount(userDto.getFollowingCount())
-                .build();
+        UserEntity user = new UserEntity();
+        String id = UUID.randomUUID().toString();
+        user.setId(id);
+        user.setAvatar(userDto.getAvatar());
+        user.setBio(userDto.getBio());
+        user.setEmail(userDto.getEmail());
+        user.setVerified(userDto.getVerified());
+        user.setName(userDto.getName());
+        user.setUserName(userDto.getUserName());
+        user.setFollowingCount(userDto.getFollowingCount());
+        user.setFollowerCount(userDto.getFollowerCount());
+        return userRepository.save(user);
     }
 
 }

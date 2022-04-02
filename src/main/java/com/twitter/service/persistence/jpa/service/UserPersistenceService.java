@@ -32,14 +32,8 @@ public class UserPersistenceService {
         return userEntityConverter.toDto(userEntity);
     }
 
-    public void addUser(UserRequest userRequest) {
-        try {
-            UserEntity userEntity = userEntityConverter.toEntity(userRequest);
-            log.info("user added- {}", userEntity.getUserName());
-            userEntityConverter.toDto(userEntity);
-        } catch (Exception e) {
-            log.error("Exception : {}", e);
-        }
+    public void addUser(UserDto user) {
+        userEntityConverter.toEntityOfDto(user);
     }
 
     public UserDto editUser(UserRequest request) {
