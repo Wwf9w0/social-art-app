@@ -27,8 +27,8 @@ public class UserPersistenceService {
     }
 
     public UserDto getUserByUserId(String userId) {
-        UserEntity userEntity = userRepository.getById(userId);
-        return userEntityConverter.toDto(userEntity);
+        Optional<UserEntity> userEntity = userRepository.findById(userId);
+        return userEntityConverter.toDtoOpt(userEntity);
     }
 
     public UserDto addUser(UserDto user) {

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,20 @@ public class UserEntityConverter {
                .name(userEntity.getName())
                .verified(userEntity.getVerified())
                .build();
+    }
+
+    public UserDto toDtoOpt(Optional<UserEntity> userEntity){
+        return UserDto.builder()
+                .id(userEntity.get().getId())
+                .avatar(userEntity.get().getAvatar())
+                .followerCount(userEntity.get().getFollowerCount())
+                .followingCount(userEntity.get().getFollowingCount())
+                .bio(userEntity.get().getBio())
+                .email(userEntity.get().getEmail())
+                .userName(userEntity.get().getUserName())
+                .name(userEntity.get().getName())
+                .verified(userEntity.get().getVerified())
+                .build();
     }
 
     public List<UserDto> toDtoList(List<UserEntity> userEntities){
