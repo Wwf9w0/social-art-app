@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -41,7 +38,7 @@ public class PostPersistenceService {
         return postDtos;
     }
 
-    public PostDto getPost(String postId) {
+    public PostDto getPost(Long postId) {
         Optional<PostEntity> post = postRepository.findById(postId);
         if (post.isPresent()) {
             return postEntityConverter.toPostDto(post.get());
@@ -53,12 +50,11 @@ public class PostPersistenceService {
     public PostDto addPost(PostRequest request) {
         List<HashTagPostEntity> hashTagPostEntityArrayList = new ArrayList<>();
         PostEntity postEntity = postEntityConverter.toDto(request);
-        Optional<HashTagEntity> hashTagPost = hashTagRepository.findById(postEntity.getId());
-        Optional<UserEntity> user = userRepository.findById(request.getUserId());
-        postEntity.setUserPosts(user.get());
-        if (Objects.nonNull(request.getTag())){
+        UserEntity user = userRepository.findById(request.getUserId()).orElse(null);
+        postEntity.setUserPosts(user);
+      /*  if (Objects.nonNull(request.getTag())){
             hashTagPost.get().setUsed(true);
-        }
+        }*/
         List<HashTagEntity> hashTagEntities = hashTagPersistenceService.getHashTagsByTags(request.getHashtags());
         hashTagEntities.stream()
                 .forEach(hashPost -> {
@@ -75,7 +71,7 @@ public class PostPersistenceService {
     }
 
     @Transactional
-    public boolean deletePost(String postId, String userId) {
+    public boolean deletePost(Long postId) {
         if (Optional.ofNullable(getPost(postId)).isPresent()) {
             postRepository.deleteById(postId);
             return true;
@@ -84,7 +80,7 @@ public class PostPersistenceService {
     }
 
     @Transactional
-    public long addLike(String postId, String userId) {
+    public long addLike(Long postId, Long userId) {
         PostEntity post = getPostById(postId);
         post.incrementLikeCount();
         UserEntity user = getUser(userId);
@@ -104,7 +100,7 @@ public class PostPersistenceService {
     }
 
     @Transactional
-    public long removeLike(String postId, String userId) {
+    public long removeLike(Long postId, Long userId) {
         PostEntity post = getPostById(postId);
         post.decrementLikeCount();
         UserEntity user = getUser(userId);
@@ -121,12 +117,12 @@ public class PostPersistenceService {
         }
     }
 
-    private UserEntity getUser(String userId) {
+    private UserEntity getUser(Long userId) {
         return userEntityConverter
                 .toEntityOfDto(userService.getUserByUserId(userId));
     }
 
-    private PostEntity getPostById(String postId) {
+    private PostEntity getPostById(Long postId) {
         return postEntityConverter
                 .toPostEntity(getPost(postId));
     }

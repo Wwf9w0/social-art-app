@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +25,7 @@ public class UserService {
     public UserDto saveUser(UserRequest request) {
         try{
             UserEntity user = userEntityConverter.toEntity(request);
-         return  userPersistenceService.addUser(userEntityConverter.toDto(user));
+         return  userPersistenceService.addUser(user);
         }catch (Exception e){
             //TODO exception handler added
             log.error("Save User Exception : {}", e);
@@ -36,7 +37,7 @@ public class UserService {
         return userPersistenceService.getUserByUserName(name);
     }
 
-    public UserDto getUserByUserId(String userId) {
+    public UserDto getUserByUserId(Long userId) {
         return userPersistenceService.getUserByUserId(userId);
     }
 
@@ -44,23 +45,23 @@ public class UserService {
         return userPersistenceService.editUser(request);
     }
 
-    public boolean addFollower(String userId, String followerId) {
+    public boolean addFollower(Long userId, String followerId) {
         return userPersistenceService.addFollower(userId, followerId);
     }
 
-    public boolean addFollowing(String userId, String followingId) {
+    public boolean addFollowing(Long userId, String followingId) {
         return userPersistenceService.addFollowing(userId, followingId);
     }
 
-    public boolean removeFollower(String followerId, String userId) {
+    public boolean removeFollower(String followerId, Long userId) {
         return userPersistenceService.removeFollower(followerId, userId);
     }
 
-    public Map<String, Date> getFollowers(String userId) {
+    public Map<String, Date> getFollowers(Long userId) {
         return userPersistenceService.getFollowers(userId);
     }
 
-    public Map<String, Date> getFollowings(String userId) {
+    public Map<String, Date> getFollowings(Long userId) {
         return userPersistenceService.getFollowings(userId);
     }
 }

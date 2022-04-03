@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostRequest {
 
-    private String id;
     private String text;
-    private String userId;
+    private Long userId;
     private List<String> images = new ArrayList<>(4);
     private Long likeCount;
     private Long repostCount;

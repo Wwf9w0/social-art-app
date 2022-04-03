@@ -13,9 +13,9 @@ import java.util.*;
 @Builder
 public class PostDto {
 
-    private String id;
+    private Long id;
     private String text;
-    private String userId;
+    private Long userId;
     private List<String> images = new ArrayList<>(4);
     private Long likeCount;
     private Long repostCount;

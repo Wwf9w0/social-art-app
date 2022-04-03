@@ -68,8 +68,7 @@ public class UserEntityConverter {
 
     public UserEntity toEntityOfDto(UserDto userDto){
         UserEntity user = new UserEntity();
-        String id = UUID.randomUUID().toString();
-        user.setId(id);
+        user.setId(userDto.getId());
         user.setAvatar(userDto.getAvatar());
         user.setBio(userDto.getBio());
         user.setEmail(userDto.getEmail());

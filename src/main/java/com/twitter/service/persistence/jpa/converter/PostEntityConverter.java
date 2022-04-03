@@ -28,7 +28,6 @@ public class PostEntityConverter {
 
     public PostEntity toDto(PostRequest request) {
         return PostEntity.builder()
-                .id(request.getId())
                 .hashtags(request.getHashtags())
                 .images(request.getImages())
                 .likeCount(request.getLikeCount())

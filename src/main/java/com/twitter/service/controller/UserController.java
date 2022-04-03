@@ -25,12 +25,12 @@ public class UserController {
     }
 
     @GetMapping()
-    public ResponseEntity<UserDto> getUserByName(@RequestParam(value = "name") String name) {
+    public ResponseEntity<UserDto> getUserByUserName(@RequestParam(value = "name") String name) {
         return ResponseEntity.ok(userService.getUserByName(name));
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable String userId) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getUserByUserId(userId));
     }
 
@@ -40,30 +40,30 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow")
-    public ResponseEntity<HttpStatus> addFollower(@PathVariable String userId) {
+    public ResponseEntity<HttpStatus> addFollower(@PathVariable Long userId) {
         userService.addFollower(userId, UUID.randomUUID().toString());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/{userId}/following")
-    public ResponseEntity<HttpStatus> addFollowing(@PathVariable String userId) {
+    public ResponseEntity<HttpStatus> addFollowing(@PathVariable Long userId) {
         userService.addFollowing(userId, UUID.randomUUID().toString());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{userId}/follow")
-    public ResponseEntity<HttpStatus> removeFollower(@PathVariable String userId) {
-        userService.removeFollower(userId, UUID.randomUUID().toString());
+    public ResponseEntity<HttpStatus> removeFollower(@PathVariable Long userId) {
+        userService.removeFollower(UUID.randomUUID().toString(), userId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}/followers")
-    public ResponseEntity<Map<String, Date>> getFollowers(@PathVariable String userId) {
+    public ResponseEntity<Map<String, Date>> getFollowers(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getFollowers(userId));
     }
 
     @GetMapping("/{userId}/followings")
-    public ResponseEntity<Map<String, Date>> getFollowings(@PathVariable String userId) {
+    public ResponseEntity<Map<String, Date>> getFollowings(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getFollowings(userId));
     }
 }

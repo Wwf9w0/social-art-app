@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -26,13 +27,13 @@ public class UserPersistenceService {
         return userEntityConverter.toDto(user);
     }
 
-    public UserDto getUserByUserId(String userId) {
+    public UserDto getUserByUserId(Long userId) {
         Optional<UserEntity> userEntity = userRepository.findById(userId);
         return userEntityConverter.toDtoOpt(userEntity);
     }
 
-    public UserDto addUser(UserDto user) {
-        UserEntity userEntity = userEntityConverter.toEntityOfDto(user);
+    public UserDto addUser(UserEntity user) {
+       UserEntity userEntity =  userRepository.save(user);
        return userEntityConverter.toDto(userEntity);
     }
 
@@ -42,7 +43,7 @@ public class UserPersistenceService {
         return userEntityConverter.toDto(userRepository.save(userEntity));
     }
 
-    public boolean addFollower(String userId, String followerId) {
+    public boolean addFollower(Long userId, String followerId) {
         UserEntity user = userRepository.getById(userId);
         user.setFollower(followerId);
         userRepository.save(user);
@@ -50,7 +51,7 @@ public class UserPersistenceService {
         return true;
     }
 
-    public boolean addFollowing(String userId, String followingId) {
+    public boolean addFollowing(Long userId, String followingId) {
         UserEntity user = userRepository.getById(userId);
         user.setFollowing(followingId);
         userRepository.save(user);
@@ -59,7 +60,7 @@ public class UserPersistenceService {
         return true;
     }
 
-    public boolean removeFollower(String followerId, String userId) {
+    public boolean removeFollower(String followerId, Long userId) {
         UserEntity user = userRepository.getById(userId);
         user.removeFollower(followerId);
         userRepository.save(user);
@@ -67,19 +68,19 @@ public class UserPersistenceService {
         return true;
     }
 
-    public Map<String, Date> getFollowers(String userId) {
+    public Map<String, Date> getFollowers(Long userId) {
         Optional<UserEntity> users = userRepository.findById(userId);
         log.info("list followers - {}", users.get().getFollower());
         return users.get().getFollower();
     }
 
-    public Map<String, Date> getFollowings(String userId) {
+    public Map<String, Date> getFollowings(Long userId) {
         Optional<UserEntity> user = userRepository.findById(userId);
         log.info("list followings - {}", user.get().getFollowing());
         return user.get().getFollowing();
     }
 
-    public Optional<UserEntity> findByUserId(String userId){
+    public Optional<UserEntity> findByUserId(Long userId){
         return userRepository.findById(userId);
     }
 }

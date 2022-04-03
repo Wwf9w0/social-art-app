@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class HashTagPostDto {
 
-    private String id;
+    private Long id;
     private HashTagDto hashtagDto;
     private PostDto postDto;
 }
