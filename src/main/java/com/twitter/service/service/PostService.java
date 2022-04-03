@@ -1,7 +1,6 @@
 package com.twitter.service.service;
 
 import com.twitter.service.persistence.jpa.dto.PostDto;
-import com.twitter.service.persistence.jpa.entity.PostEntity;
 import com.twitter.service.persistence.jpa.request.PostRequest;
 import com.twitter.service.persistence.jpa.service.PostPersistenceService;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

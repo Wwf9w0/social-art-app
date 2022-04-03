@@ -5,7 +5,6 @@ import com.twitter.service.persistence.jpa.converter.PostEntityConverter;
 import com.twitter.service.persistence.jpa.dto.HashTagDto;
 import com.twitter.service.persistence.jpa.dto.PostDto;
 import com.twitter.service.persistence.jpa.entity.HashTagEntity;
-import com.twitter.service.persistence.jpa.entity.HashTagPostEntity;
 import com.twitter.service.persistence.jpa.entity.PostEntity;
 import com.twitter.service.persistence.jpa.repository.HashTagPostRepository;
 import com.twitter.service.persistence.jpa.repository.HashTagRepository;

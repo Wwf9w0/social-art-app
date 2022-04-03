@@ -27,7 +27,6 @@ public class PostPersistenceService {
     private final UserRepository userRepository;
     private final PostEntityConverter postEntityConverter;
     private final UserEntityConverter userEntityConverter;
-    private final HashTagRepository hashTagRepository;
 
 
     public List<PostDto> getAllPosts() {

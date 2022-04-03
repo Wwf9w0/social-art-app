@@ -3,7 +3,6 @@ package com.twitter.service.service;
 import com.twitter.service.persistence.jpa.converter.UserEntityConverter;
 import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.entity.UserEntity;
-import com.twitter.service.persistence.jpa.repository.UserRepository;
 import com.twitter.service.persistence.jpa.request.UserRequest;
 import com.twitter.service.persistence.jpa.service.UserPersistenceService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service

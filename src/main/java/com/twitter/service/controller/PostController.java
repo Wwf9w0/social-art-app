@@ -1,16 +1,13 @@
 package com.twitter.service.controller;
 
 import com.twitter.service.persistence.jpa.dto.PostDto;
-import com.twitter.service.persistence.jpa.dto.UserDto;
 import com.twitter.service.persistence.jpa.request.PostRequest;
-import com.twitter.service.persistence.jpa.service.PostPersistenceService;
 import com.twitter.service.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,5 +48,5 @@ public class PostController {
         return ResponseEntity.ok(postService.removeLike(postId, userId));
     }
 
-
+    //TODO getPostByUserId add
 }
