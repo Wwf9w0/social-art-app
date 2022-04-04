@@ -8,11 +8,11 @@
 		<version>2.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.twitter.service</groupId>
-	<artifactId>twitter-backend</artifactId>
+	<groupId>com.social.musician.service</groupId>
+	<artifactId>social-musician-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>twitter-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<name>social-musician-backend</name>
+	<description>Social musician project for Spring Boot</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
